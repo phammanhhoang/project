@@ -1,0 +1,132 @@
+﻿@{
+    ViewData["Title"] = "";
+}
+
+<style>
+    /* Banner chỉnh sửa lại */
+    .banner {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        background: url('https://inuvdp.com/wp-content/uploads/2022/05/banner-ban-hang-02.jpg') center/cover no-repeat;
+        background-size: contain; /* Đảm bảo ảnh không bị tràn */
+        background-repeat: no-repeat;
+        background-color: #d32f2f; /* Màu nền dự phòng */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        text-align: center;
+        overflow: hidden; /* Ngăn tràn */
+    }
+
+    .banner-content {
+        background: rgba(0, 0, 0, 0.6);
+        padding: 20px 40px;
+        border-radius: 10px;
+    }
+
+    .banner h1 {
+        font-size: 3rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .banner p {
+        font-size: 1.5rem;
+        font-style: italic;
+    }
+
+    /* Nút CTA */
+    .btn-custom {
+        background-color: #ff5722;
+        color: white;
+        font-size: 1.2rem;
+        padding: 12px 24px;
+        border-radius: 30px;
+        transition: 0.3s;
+        text-decoration: none;
+    }
+
+        .btn-custom:hover {
+            background-color: #e64a19;
+            transform: scale(1.05);
+        }
+
+    /* Khu vực sản phẩm */
+    .product-section {
+        padding: 40px 0;
+    }
+
+    .product-card {
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        text-align: center;
+    }
+
+        .product-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .product-card p {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+</style>
+
+<!-- Banner -->
+<div class="banner">
+    <div class="banner-content">
+        <h1>Phạm Mạnh Hoàng Shop</h1>
+        <p>Chuyên cung cấp các sản phẩm chất lượng với giá tốt nhất!</p>
+    </div>
+</div>
+
+<!-- Danh sách sản phẩm -->
+<div class="container product-section">
+    <h2 class="text-center mb-4">Sản phẩm nổi bật</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.uhPS2dzmnq9277PMdyiSXgHaGN&pid=Api&P=0&h=220" alt="Giày Thể Thao">
+                <p>Giày Thể Thao</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="http://www.chiemtaimobile.vn/images/XIAOMI-upload2/xiaomi-khac/%C4%91%E1%BB%93ng%20h%E1%BB%93%20W001Q/dong-ho-thach-anh.jpg?1558592422372" alt="Đồng Hồ Cao Cấp">
+                <p>Đồng Hồ Cao Cấp</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.aekIzspT8aW-Jh-F4-UekAHaFM&pid=Api&P=0&h=220" alt="Laptop Gaming">
+                <p>Laptop Gaming</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="product-card">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.LraoEC9f5A5zGulADYdOrgHaE6&pid=Api&P=0&h=220" alt="Điện Thoại Thông Minh">
+                <p>Điện Thoại Thông Minh</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Nút xem thêm -->
+<div class="text-center mt-4">
+    <a class="btn btn-custom" href="/Product">Xem Tất Cả Sản Phẩm</a>
+</div>

@@ -1,0 +1,97 @@
+﻿@model SV21T1020873.Shop.Models.OrderDetailModel
+<section class="container my-5">
+    <div class="text-center mb-5">
+        <h2>Chi Tiết Đơn Hàng</h2>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="row">
+        <!-- Order Details -->
+        <div class="col-md-7">
+            <h5 class="mb-3">Thông tin Đơn Hàng</h5>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50%;">Sản phẩm</th>
+                            <th>Giá</th>
+                            <th>Số lượng</th>
+                            <th>Tổng</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            decimal tong = 0;
+                            foreach (var item in SV21T1020873.BusinessLayers.SaleDataService.ListOrderDetails(Model.Order.OrderID))
+                            {
+                                tong += item.TotalPrice;
+                            }
+                            foreach (var item in SV21T1020873.BusinessLayers.SaleDataService.ListOrderDetails(Model.Order.OrderID))
+                            {
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <img src="@WebConfig.ProductPhotoURL/@item.Photo"
+                                                 alt="@item.ProductName"
+                                                 class="mr-3"
+                                                 style="width: 100px;">
+                                            <div>
+                                                <strong>@item.ProductName</strong>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>@item.SalePrice.ToString("N0")</td>
+                                    <td class="text-center">@item.Quantity</td>
+                                    <td>@item.TotalPrice.ToString("N0")</td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="border-top mt-3 pt-3 text-right font-weight-bold">
+                Tổng cộng: <strong>@tong.ToString("N0")</strong>
+            </div>
+        </div>
+
+        <!-- Order and Shipping Information -->
+        <div class="col-md-5">
+            <h5 class="mb-3">Thông Tin Đơn Hàng & Giao Hàng</h5>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td><strong>Mã đơn hàng:</strong></td>
+                            <td>@Model.Order.OrderID</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Trạng thái:</strong></td>
+                            <td>@Model.Order.StatusDescription</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ngày đặt hàng:</strong></td>
+                            <td>@Model.Order.OrderTime.ToString("dd/MM/yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Số điện thoại:</strong></td>
+                            <td>@Model.Order.CustomerPhone</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Tỉnh/Thành phố:</strong></td>
+                            <td>@Model.Order.DeliveryProvince</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Địa chỉ giao hàng:</strong></td>
+                            <td>@Model.Order.DeliveryAddress</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="border-top mt-3 pt-3">
+                <a href="~/Order/HistoryOrder" class="btn btn-secondary btn-block">Trở về</a>
+            </div>
+        </div>
+    </div>
+</section>

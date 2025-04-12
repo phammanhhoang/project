@@ -1,0 +1,137 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Đăng nhập</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600&display=swap">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Source Sans Pro', sans-serif;
+        }
+
+        .login-card {
+            max-width: 400px;
+            width: 100%;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .login-header {
+            background-color: #ffc107; /* vàng */
+            color: #000000;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        .login-body {
+            padding: 30px;
+            background: #ffffff;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #000;
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            transition: all 0.3s ease;
+        }
+
+            .form-control:focus {
+                border-color: #ffc107;
+                box-shadow: 0 0 5px rgba(255, 193, 7, 0.4);
+            }
+
+        .btn-primary {
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+            .btn-primary:hover {
+                background-color: #e0a800;
+                color: #000;
+            }
+
+        .register-link {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+
+            .register-link a {
+                color: #ffc107;
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+                .register-link a:hover {
+                    color: #e0a800;
+                    text-decoration: underline;
+                }
+
+        .text-danger {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="login-card">
+            <div class="login-header">
+                PMH Shop
+            </div>
+            <div class="login-body">
+                <p class="text-center text-muted">Đăng nhập vào tài khoản của bạn</p>
+                <form action="~/Account/Login" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Tên đăng nhập</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Nhập tên đăng nhập" value="@ViewBag.UserName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mật khẩu</label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" required>
+                    </div>
+
+                    <div class="mb-3 text-danger">
+                        @Html.ValidationMessage("Error")
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">Đăng nhập</button>
+                </form>
+
+                <div class="register-link">
+                    Chưa có tài khoản? <a href="~/Account/Register">Đăng ký ngay</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

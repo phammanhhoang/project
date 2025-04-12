@@ -1,0 +1,85 @@
+﻿@model List<OrderDetailModel>
+@{
+    decimal tong = 0;
+
+    var groupedOrders = Model
+        .GroupBy(order => order.Order.DeliveryProvince)
+        .ToList();
+}
+<!-- Order History Section -->
+<section class="container my-5">
+    <div class="text-center mb-5">
+        <h2>Đơn Hàng Của Tôi</h2>
+        <p class="text-muted">Xem lại các đơn hàng đã đặt của bạn</p>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <h1 class="text-center">
+            <strong>Đơn hàng của bạn chưa có</strong>
+        </h1>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-dark text-warning text-center">
+                    <tr>
+                        <th style="width: 20%;">Tỉnh Thành Nhận Hàng</th>
+                        <th>Chi Tiết Đơn Hàng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var group in groupedOrders)
+                    {
+                        <tr>
+                            <td class="align-middle"><strong>@group.Key</strong></td>
+                            <td>
+                                <table class="table table-sm table-bordered mb-0">
+                                    <thead class="table-warning text-dark text-center">
+                                        <tr>
+                                            <th style="width: 10%;">Mã SP</th>
+                                            <th style="width: 30%;">Tên Sản Phẩm</th>
+                                            <th style="width: 15%;">Trạng Thái</th>
+                                            <th style="width: 15%;">Ngày Đặt</th>
+                                            <th style="width: 15%;">Hoàn Thành</th>
+                                            <th style="width: 15%;">Chi Tiết</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in group)
+                                        {
+                                            foreach (var details in item.Details)
+                                            {
+                                                <tr class="text-center align-middle">
+                                                    <td>@details.ProductID</td>
+                                                    <td class="text-start">
+                                                        <div class="d-flex align-items-center">
+                                                            <img src="~/images/products/@(string.IsNullOrWhiteSpace(details.Photo) ? "avatar.png" : details.Photo)"
+                                                                 alt="Product" class="img-thumbnail me-2"
+                                                                 style="width: 50px; height: 50px;">
+                                                            <span>@details.ProductName</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>@item.Order.StatusDescription</td>
+                                                    <td>@item.Order.OrderTime.ToString("dd/MM/yyyy")</td>
+                                                    <td>@item.Order.FinishedTime?.ToString("dd/MM/yyyy")</td>
+                                                    <td>
+                                                        <a href="~/Order/OrderDetails/@item.Order.OrderID"
+                                                           class="btn btn-warning btn-sm text-dark fw-bold">
+                                                            Xem Chi Tiết
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

@@ -1,0 +1,119 @@
+﻿@model SV21T1020873.Shop.Models.ProductSearchInput
+@{
+    ViewBag.Title = "Lập đơn hàng";
+}
+<div class="card">
+    <div class="card-body">
+        <!-- Thông tin giỏ hàng, khách hàng -->
+        <div class="row">
+            <div class="col-md-8">
+                <!-- Giỏ hàng -->
+                <h4>Danh sách mặt hàng đã chọn</h4>
+                <div id="shoppingCart" class="table-responsive"></div>
+
+                <!-- Nhập khách hàng, nhân viên phụ trách và khởi tạo đơn hàng -->
+                <form id="frmOrderInit" action="~/Order/Init" method="post" class="row g-3">
+                    <h4>Thông tin về khách hàng và địa chỉ giao hàng</h4>
+                    <div class="col-md-12 d-flex align-items-center">
+                        <label for="customerName" class="form-label me-3">Khách hàng:</label>
+                        <div>
+                            @if (User.GetUserData() is { DisplayName: not null } userData)
+                            {
+                                <p id="customerName" class="form-control-plaintext">@userData.DisplayName</p>
+                            }
+                            else
+                            {
+                                <p id="customerName" class="form-control-plaintext text-muted">Không xác định</p>
+                            }
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-12">
+                        <label class="form-label">Tỉnh/thành:</label>
+                        <select class="form-select" name="deliveryProvince">
+                            <option value="">-- Chọn tỉnh/thành --</option>
+                            @foreach (var province in SV21T1020873.BusinessLayers.CommonDataService.ListOfProvince())
+                            {
+                                <option value="@province.ProvinceName">@province.ProvinceName</option>
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label">Địa chỉ nhận hàng:</label>
+                        <input type="text" class="form-control" name="deliveryAddress" />
+                    </div>
+
+                    <div class="col-md-12">
+                        <span id="error-message" class="text-danger"></span>
+                    </div>
+
+                    <div class="col-md-12 text-end">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            <i class="fa fa-plus-circle"></i> Xác nhận đặt hàng
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            doSearch(@Model.Page);
+            showShoppingCart();
+            $("#frmSearchInput").submit(function (e) {
+                e.preventDefault();
+                doSearch(1);
+            });
+            $("#frmOrderInit").submit(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    url: $(this).prop("action"),
+                    type: $(this).prop("method"),
+                    data: $(this).serializeArray(),
+
+                    success: function (result) {
+                        if (isNaN(result)) {
+                            $("#error-message").html(result);
+                        }
+                        else {
+                            window.location.href = "HistoryOrder" ;
+                        }
+                    }
+                });
+            });
+
+        });
+
+        function doSearch(page) {
+            var searchCondition = $("#frmSearchInput").serializeArray();
+            searchCondition.push({ name: "page", value: page });
+            var action = $("#frmSearchInput").prop("action");
+            var method = $("#frmSearchInput").prop("method");
+            $.ajax({
+                url: action,
+                type: method,
+                data: searchCondition,
+                success: function (data) {
+                    $("#searchResult").html(data);
+                }
+            });
+        }
+
+        function showShoppingCart() {
+            $.ajax({
+                url: "ShoppingCart",
+                type: 'GET',
+                success: function (data) {
+                    $('#shoppingCart').html(data);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,134 @@
+﻿<header class="main-header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container-fluid">
+            <!-- Logo -->
+            <a class="navbar-brand fw-bold text-warning" href="~/">
+                <i class="bi bi-house-door me-2"></i> Trang chủ
+            </a>
+
+            <!-- Toggler -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!-- Navbar Links -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-medium" href="~/Home/Contact">
+                            <i class="bi bi-telephone me-2"></i> Liên hệ
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-medium" href="~/Product">
+                            <i class="bi bi-basket3 me-2"></i> Sản Phẩm
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-medium" href="~/Order/HistoryOrder">
+                            <i class="bi bi-bag-check me-2"></i> Đơn hàng của tôi
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Thanh tìm kiếm ở giữa -->
+               @*  <form class="d-flex mx-auto search-bar">
+                    <input class="form-control me-2" type="search" placeholder="Tìm kiếm sản phẩm..." aria-label="Search">
+                    <button class="btn btn-warning" type="submit">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form> *@
+
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link text-light fw-medium" href="~/Order/Create">
+                            <i class="bi bi-cart4 me-2"></i>  Giỏ hàng
+                        </a>
+                    </li>
+                </ul>
+
+                @if (User.GetUserData() != null)
+                {
+                    var userData = User.GetUserData();
+                    <ul class="navbar-nav ms-3">
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="~/images/employees/nophoto.png" class="rounded-circle user-image me-2" alt="User Image" width="35" height="35">
+                                <span class="d-none d-lg-inline text-warning">@userData.DisplayName</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="userDropdown">
+                                <li class="dropdown-item text-center">
+                                    <img src="~/images/customer/nophoto.png" class="img-thumbnail rounded-circle mb-2" alt="User Image" width="60" height="60">
+                                    <p class="mb-2 fw-bold">@userData.DisplayName</p>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a href="~/Account/ChangePassword" class="dropdown-item">🔑 Đổi mật khẩu</a></li>
+                                <li><a href="~/Account/ChangeProfile/@User.GetUserData().UserId" class="dropdown-item">📄 Đổi lý lịch cá nhân</a></li>
+                                <li><a href="~/Account/Logout" class="dropdown-item text-danger">🚪 Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </div>
+    </nav>
+</header>
+
+<style>
+    /* ======= NAVBAR ======= */
+    .navbar-nav .nav-link {
+        transition: color 0.3s ease-in-out;
+    }
+
+        .navbar-nav .nav-link:hover {
+            color: #f8d210 !important; /* Màu vàng khi hover */
+        }
+
+    /* ======= USER IMAGE ======= */
+    .user-image {
+        border: 2px solid #fff;
+        transition: transform 0.2s;
+    }
+
+        .user-image:hover {
+            transform: scale(1.1); /* Hiệu ứng phóng to nhẹ khi hover */
+        }
+
+    /* ======= DROPDOWN MENU ======= */
+    .dropdown-menu {
+        min-width: 220px;
+        border-radius: 10px;
+        border: none;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+        .dropdown-menu a {
+            padding: 10px 15px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+            .dropdown-menu a:hover {
+                background: #f8f9fa;
+                border-radius: 5px;
+                transform: scale(1.05);
+            }
+
+    /* ======= SEARCH BAR ======= */
+    .search-bar {
+        width: 40%; /* Độ rộng thanh tìm kiếm */
+    }
+
+        .search-bar input {
+            border-radius: 20px 0 0 20px;
+            border: 1px solid #f8d210;
+        }
+
+        .search-bar button {
+            border-radius: 0 20px 20px 0;
+            border: 1px solid #f8d210;
+        }
+
+            .search-bar button:hover {
+                background-color: #e6b800;
+            }
+</style>

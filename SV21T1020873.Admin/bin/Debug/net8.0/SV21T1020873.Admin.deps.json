@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "SV21T1020873.Admin/1.0.0": {
+        "runtime": {
+          "SV21T1020873.Admin.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "SV21T1020873.Admin/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

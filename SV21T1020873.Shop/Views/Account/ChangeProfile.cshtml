@@ -1,0 +1,62 @@
+﻿@model SV21T1020873.DomainModels.Customer
+@{
+    ViewBag.Title = "Đổi lý lịch cá nhân";
+}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 class="text-center mb-4">Cập Nhật Thông Tin Tài Khoản</h2>
+            <form action="~/Account/ChangeProfile" method="post" class="needs-validation" novalidate>
+                <input type="hidden" name="@nameof(Model.CustomerID)" value="@Model.CustomerID" />
+
+                <div class="mb-3">
+                    <label for="full-name" class="form-label">Họ Tên</label>
+                    <input type="text" class="form-control" id="full-name" name="@nameof(Model.CustomerName)" value="@Model.CustomerName" required>
+                    @Html.ValidationMessage(nameof(Model.CustomerName), new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="@nameof(Model.Email)" value="@Model.Email" required>
+                    @Html.ValidationMessage(nameof(Model.Email), new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    <label for="phone" class="form-label">Số Điện Thoại</label>
+                    <input type="text" class="form-control" id="phone" name="@nameof(Model.Phone)" value="@Model.Phone" required>
+                    @Html.ValidationMessage(nameof(Model.Phone), new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    <label for="city" class="form-label">Tỉnh Thành</label>
+                    <select class="form-select" id="city" name="@nameof(Model.Province)" required>
+                        <option value="">--Chọn tỉnh thành--</option>
+                        @foreach (var item in SV21T1020873.BusinessLayers.CommonDataService.ListOfProvince())
+                        {
+                            if (item.ProvinceName == Model.Province)
+                            {
+                                <option value="@item.ProvinceName" selected>@item.ProvinceName</option>
+                            }
+                            else
+                            {
+                                <option value="@item.ProvinceName">@item.ProvinceName</option>
+                            }
+                        }
+                    </select>
+                    @Html.ValidationMessage(nameof(Model.Province), new { @class = "text-danger" })
+                </div>
+
+                <div class="mb-3">
+                    <label for="address" class="form-label">Địa Chỉ</label>
+                    <input type="text" class="form-control" id="address" name="@nameof(Model.Address)" value="@Model.Address" required>
+                    @Html.ValidationMessage(nameof(Model.Address), new { @class = "text-danger" })
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <button type="submit" class="btn btn-dark">Lưu</button>
+                    <a href="/" class="btn btn-secondary">Trở về</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
